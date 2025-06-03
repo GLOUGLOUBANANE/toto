@@ -1,6 +1,9 @@
 # Bouncing Ball Game
 
-This repository contains a simple game written in Python using the `pygame` library. A red ball bounces around the screen within the window boundaries.
+This repository contains a simple game featuring a red ball bouncing around the screen. Two versions are provided:
+
+- **Python/Pygame** (`bouncing_ball.py`) – run locally on your machine.
+- **Web version** (`index.html`) – open directly in any modern browser.
 
 ## Requirements
 
@@ -22,3 +25,8 @@ python bouncing_ball.py
 ```
 
 A window will open showing a red ball bouncing off the edges of the screen. Close the window to quit.
+
+## Playing in the Browser
+
+To try the game without installing anything, simply open `index.html` in your
+browser. The red ball should start bouncing immediately.
