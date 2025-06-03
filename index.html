@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bouncing Ball (JS)</title>
+<style>
+  body { margin: 0; overflow: hidden; }
+  canvas { display: block; background: #000; }
+</style>
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+// Set canvas to full window size
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  // Recreate stars when size changes
+  stars.forEach(s => {
+    s.x = Math.random() * canvas.width;
+    s.y = Math.random() * canvas.height;
+  });
+}
+window.addEventListener('resize', resize);
+resize();
+
+// Ball properties
+let x = canvas.width / 2;
+let y = canvas.height / 2;
+let radius = 20;
+let vx = 3;
+let vy = 3;
+
+// Star field
+const stars = [];
+for (let i = 0; i < 100; i++) {
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height
+  });
+}
+
+function update() {
+  x += vx;
+  y += vy;
+
+  if (x - radius <= 0 || x + radius >= canvas.width) {
+    vx = -vx + (Math.random() * 2 - 1);
+  }
+  if (y - radius <= 0 || y + radius >= canvas.height) {
+    vy = -vy + (Math.random() * 2 - 1);
+  }
+
+  // Cap speed
+  vx = Math.max(Math.min(vx, 6), -6);
+  vy = Math.max(Math.min(vy, 6), -6);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // Draw stars
+  ctx.fillStyle = '#ffffff';
+  stars.forEach(s => {
+    ctx.fillRect(s.x, s.y, 2, 2);
+  });
+
+  ctx.fillStyle = '#ff0000';
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function loop() {
+  update();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+loop();
+</script>
+</body>
+</html>
